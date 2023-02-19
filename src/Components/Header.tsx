@@ -1,4 +1,5 @@
 import { motion, Variants } from "framer-motion";
+import { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 
@@ -26,6 +27,7 @@ const Logo = styled(motion.svg)`
   width: 95px;
   height: 25px;
   fill: ${(props) => props.theme.red};
+  cursor: pointer;
   path {
     stroke-width: 6px;
     stroke: #df6064;
@@ -44,6 +46,8 @@ const Item = styled.li`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  cursor: pointer;
+  user-select: none;
   &:hover {
     color: ${(props) => props.theme.white.lighter};
   }
@@ -73,9 +77,31 @@ const Dot = styled(motion.span)`
   background-color: ${(props) => props.theme.red};
 `;
 
+const Search = styled(motion.span)`
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  svg {
+    height: 28px;
+  }
+`;
+
+const SearchInput = styled(motion.input)`
+  position: absolute;
+  transform-origin: right center;
+  left: -170px;
+`;
+
 function Header() {
+  const [searchOn, setSearchOn] = useState(false);
   const homeMatch = useRouteMatch("/");
   const tvMatch = useRouteMatch("/tv");
+
+  const onSearch = () => {
+    setSearchOn((current) => !current);
+  };
 
   console.log(homeMatch, tvMatch);
 
@@ -101,16 +127,37 @@ function Header() {
           <Item>
             <Link to="/">
               Home
-              {homeMatch?.isExact ? <Dot /> : null}
+              {homeMatch?.isExact ? <Dot layoutId="Dot" /> : null}
             </Link>
           </Item>
           <Item>
-            <Link to="/tv">Tv Shows {tvMatch?.isExact ? <Dot /> : null}</Link>
+            <Link to="/tv">
+              Tv Shows {tvMatch?.isExact ? <Dot layoutId="Dot" /> : null}
+            </Link>
           </Item>
         </Items>
       </Column>
       <Column>
-        <button>search</button>
+        <Search onClick={onSearch}>
+          <motion.svg
+            animate={{ x: searchOn ? -200 : 0 }}
+            transition={{ type: "linear" }}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clipRule="evenodd"
+            ></path>
+          </motion.svg>
+          <SearchInput
+            transition={{ type: "linear" }}
+            animate={{ scaleX: searchOn ? 1 : 0 }}
+            placeholder="Search your want."
+          />
+        </Search>
       </Column>
     </Nav>
   );
