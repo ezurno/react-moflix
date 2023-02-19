@@ -1,9 +1,15 @@
-import { motion, Variants } from "framer-motion";
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+  Variants,
+} from "framer-motion";
 import { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,12 +98,41 @@ const SearchInput = styled(motion.input)`
   position: absolute;
   transform-origin: right center;
   left: -170px;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.white.lighter};
+  z-index: -1;
+  right: 0px;
+  padding: 5px 10px;
+  padding-left: 40px;
 `;
+
+const navVarient: Variants = {
+  top: {
+    backgroundColor: "rgba(0,0,0,0)",
+  },
+
+  scrolled: {
+    backgroundColor: "rgba(0,0,0,1)",
+  },
+};
 
 function Header() {
   const [searchOn, setSearchOn] = useState(false);
   const homeMatch = useRouteMatch("/");
   const tvMatch = useRouteMatch("/tv");
+
+  const { scrollY } = useScroll();
+  const navAnimation = useAnimation();
+
+  useMotionValueEvent(scrollY, "change", (value) => {
+    console.log(value);
+    if (80 < scrollY.get()) {
+      navAnimation.start("scrolled");
+    } else {
+      navAnimation.start("top");
+    }
+  }); // framer-motion 에서 지원하는 scroll 값 출력 (useEffect)
 
   const onSearch = () => {
     setSearchOn((current) => !current);
@@ -106,7 +141,7 @@ function Header() {
   console.log(homeMatch, tvMatch);
 
   return (
-    <Nav>
+    <Nav variants={navVarient} animate={navAnimation} initial="top">
       <Column>
         <Logo
           variants={logoVariants}
@@ -140,7 +175,7 @@ function Header() {
       <Column>
         <Search onClick={onSearch}>
           <motion.svg
-            animate={{ x: searchOn ? -200 : 0 }}
+            animate={{ x: searchOn ? -165 : 0 }}
             transition={{ type: "linear" }}
             fill="currentColor"
             viewBox="0 0 20 20"
