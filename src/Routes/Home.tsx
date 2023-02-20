@@ -1,3 +1,5 @@
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getMovies } from "../api";
@@ -6,6 +8,7 @@ import { makeImagePath } from "../Utils/utilities";
 const Wrapper = styled.div`
   background-color: black;
   height: 200vh;
+  overflow-x: hidden;
 `;
 
 const Loader = styled.div`
@@ -61,12 +64,45 @@ export interface IMovie {
   overview: string;
 }
 
+const Slider = styled.div`
+  position: relative;
+`;
+
+const SliderRow = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 5px;
+  position: absolute;
+  width: 100%;
+`;
+
+const Box = styled(motion.div)`
+  background-color: white;
+  height: 200px;
+`;
+
+const rowVarients: Variants = {
+  hidden: {
+    x: window.innerWidth + 10, // 10은 grid의 gap-size
+  },
+  visible: {
+    x: 0,
+  },
+  exit: { x: -window.outerWidth - 10 },
+};
+
 function Home() {
   const { data, isLoading } = useQuery<IMoviesData>(
     ["movies", "nowPlaying"],
     getMovies
   );
   console.log(data, isLoading);
+
+  const [movieIndex, setMovieIndex] = useState(0);
+  const onNext = () => {
+    setMovieIndex((value) => value + 1);
+  };
 
   return (
     <Wrapper>
@@ -78,6 +114,23 @@ function Home() {
             <Title>{data?.results[0].title.toUpperCase()}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
+          <button onClick={onNext}>Click</button>
+          <Slider>
+            <AnimatePresence>
+              <SliderRow
+                key={movieIndex}
+                variants={rowVarients}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: "tween", duration: 1 }}
+              >
+                {[1, 2, 3, 4, 5, 6].map((value, index) => (
+                  <Box key={index}>{value}</Box>
+                ))}
+              </SliderRow>
+            </AnimatePresence>
+          </Slider>
         </>
       )}
     </Wrapper>

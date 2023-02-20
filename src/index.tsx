@@ -65,6 +65,11 @@ body {
   line-height: 1.2;
   
 }
+
+::-webkit-scrollbar {
+display: none;
+}
+
 a {
   text-decoration:none;
   color:inherit;
