@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getMovies } from "../api";
-import { makeImagePath } from "../Utils/utilities";
+import { makeImagePath, useWindowDimensions } from "../Utils/utilities";
 
 const Wrapper = styled.div`
   background-color: black;
@@ -93,15 +93,16 @@ const Box = styled(motion.div)<{ bgphoto: string }>`
   }
 `;
 
-const rowVarients: Variants = {
-  hidden: {
-    x: window.innerWidth + 10, // 10은 grid의 gap-size
-  },
-  visible: {
-    x: 0,
-  },
-  exit: { x: -window.outerWidth - 10 },
-};
+// const rowVarients: Variants = {
+//   hidden: {
+//     x: window.innerWidth + 10, // 10은 grid의 gap-size
+//   },
+//   visible: {
+//     x: 0,
+//   },
+//   exit: { x: -window.outerWidth - 10 },
+// };
+// ===== BUG FIX =====
 
 const boxVariants: Variants = {
   initial: {
@@ -131,6 +132,8 @@ function Home() {
   const [movieIndex, setMovieIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
 
+  const width = useWindowDimensions();
+
   const onNext = () => {
     if (data) {
       if (leaving) return;
@@ -159,10 +162,10 @@ function Home() {
             <AnimatePresence initial={false} onExitComplete={changeLeaving}>
               <SliderRow
                 key={movieIndex}
-                variants={rowVarients}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
+                // variants={rowVarients} === BUG FIX ===
+                initial={{ x: width + 10 }}
+                animate={{ x: 0 }}
+                exit={{ x: -(width + 10) }}
                 transition={{ type: "tween", duration: 1 }}
               >
                 {data?.results
