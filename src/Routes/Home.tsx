@@ -97,11 +97,19 @@ function Home() {
     ["movies", "nowPlaying"],
     getMovies
   );
-  console.log(data, isLoading);
+  // console.log(data, isLoading);
 
   const [movieIndex, setMovieIndex] = useState(0);
+  const [leaving, setLeaving] = useState(false);
+
   const onNext = () => {
+    if (leaving) return;
+    changeLeaving();
     setMovieIndex((value) => value + 1);
+  };
+
+  const changeLeaving = () => {
+    setLeaving((current) => !current);
   };
 
   return (
@@ -116,7 +124,7 @@ function Home() {
           </Banner>
           <button onClick={onNext}>Click</button>
           <Slider>
-            <AnimatePresence>
+            <AnimatePresence onExitComplete={changeLeaving}>
               <SliderRow
                 key={movieIndex}
                 variants={rowVarients}
