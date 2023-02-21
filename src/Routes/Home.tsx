@@ -77,9 +77,12 @@ const SliderRow = styled(motion.div)`
   width: 100%;
 `;
 
-const Box = styled(motion.div)`
+const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
   height: 200px;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+  background-position: center;
 `;
 
 const rowVarients: Variants = {
@@ -92,6 +95,8 @@ const rowVarients: Variants = {
   exit: { x: -window.outerWidth - 10 },
 };
 
+const offset = 6;
+
 function Home() {
   const { data, isLoading } = useQuery<IMoviesData>(
     ["movies", "nowPlaying"],
@@ -103,9 +108,12 @@ function Home() {
   const [leaving, setLeaving] = useState(false);
 
   const onNext = () => {
-    if (leaving) return;
-    changeLeaving();
-    setMovieIndex((value) => value + 1);
+    if (data) {
+      if (leaving) return;
+      changeLeaving();
+      const maxIndex = Math.ceil(data.results.length / offset) - 1;
+      setMovieIndex((value) => (value === maxIndex ? 0 : value + 1));
+    }
   };
 
   const changeLeaving = () => {
@@ -133,9 +141,15 @@ function Home() {
                 exit="exit"
                 transition={{ type: "tween", duration: 1 }}
               >
-                {[1, 2, 3, 4, 5, 6].map((value, index) => (
-                  <Box key={index}>{value}</Box>
-                ))}
+                {data?.results
+                  .slice(1)
+                  .slice(offset * movieIndex, offset * movieIndex + offset)
+                  .map((value) => (
+                    <Box
+                      key={value.id}
+                      bgPhoto={makeImagePath(value.backdrop_path, "w500")}
+                    />
+                  ))}
               </SliderRow>
             </AnimatePresence>
           </Slider>
