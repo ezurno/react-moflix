@@ -77,12 +77,20 @@ const SliderRow = styled(motion.div)`
   width: 100%;
 `;
 
-const Box = styled(motion.div)<{ bgPhoto: string }>`
+const Box = styled(motion.div)<{ bgphoto: string }>`
   background-color: white;
   height: 200px;
-  background-image: url(${(props) => props.bgPhoto});
+  background-image: url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center;
+
+  &:first-child {
+    transform-origin: center left;
+  }
+
+  &:last-child {
+    transform-origin: center right;
+  }
 `;
 
 const rowVarients: Variants = {
@@ -93,6 +101,22 @@ const rowVarients: Variants = {
     x: 0,
   },
   exit: { x: -window.outerWidth - 10 },
+};
+
+const boxVariants: Variants = {
+  initial: {
+    scale: 1,
+  },
+
+  animate: {
+    scale: 1.3,
+    y: -50,
+    transition: {
+      delay: 0.5,
+      duration: 0.3,
+      type: "tween",
+    },
+  },
 };
 
 const offset = 6;
@@ -132,7 +156,7 @@ function Home() {
           </Banner>
           <button onClick={onNext}>Click</button>
           <Slider>
-            <AnimatePresence onExitComplete={changeLeaving}>
+            <AnimatePresence initial={false} onExitComplete={changeLeaving}>
               <SliderRow
                 key={movieIndex}
                 variants={rowVarients}
@@ -146,8 +170,12 @@ function Home() {
                   .slice(offset * movieIndex, offset * movieIndex + offset)
                   .map((value) => (
                     <Box
+                      variants={boxVariants}
                       key={value.id}
-                      bgPhoto={makeImagePath(value.backdrop_path, "w500")}
+                      bgphoto={makeImagePath(value.backdrop_path, "w500")}
+                      whileHover="animate"
+                      initial="initial"
+                      transition={{ type: "tween" }}
                     />
                   ))}
               </SliderRow>
