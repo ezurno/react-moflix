@@ -126,7 +126,7 @@ function Header() {
   const navAnimation = useAnimation();
 
   useMotionValueEvent(scrollY, "change", (value) => {
-    console.log(value);
+    // console.log(value);
     if (80 < scrollY.get()) {
       navAnimation.start("scrolled");
     } else {
@@ -138,7 +138,7 @@ function Header() {
     setSearchOn((current) => !current);
   };
 
-  console.log(homeMatch, tvMatch);
+  // console.log(homeMatch, tvMatch);
 
   return (
     <Nav variants={navVarient} animate={navAnimation} initial="top">

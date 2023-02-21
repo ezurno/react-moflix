@@ -84,6 +84,8 @@ const Box = styled(motion.div)<{ bgphoto: string }>`
   background-size: cover;
   background-position: center;
 
+  /* position: relative; slider가 이미 relative라서 사용하지 않아도 됨  */
+
   &:first-child {
     transform-origin: center left;
   }
@@ -117,10 +119,37 @@ const boxVariants: Variants = {
       duration: 0.3,
       type: "tween",
     },
+
+    zIndex: 100,
   },
 };
 
 const offset = 6;
+
+const BoxInfo = styled(motion.div)`
+  padding: 12px;
+  background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+
+  h4 {
+    text-align: center;
+    font-size: 14px;
+  }
+`;
+
+const boxInfoVariants: Variants = {
+  animate: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 0.3,
+      type: "tween",
+    },
+  },
+};
 
 function Home() {
   const { data, isLoading } = useQuery<IMoviesData>(
@@ -179,7 +208,11 @@ function Home() {
                       whileHover="animate"
                       initial="initial"
                       transition={{ type: "tween" }}
-                    />
+                    >
+                      <BoxInfo variants={boxInfoVariants}>
+                        <h4>{value.title}</h4>
+                      </BoxInfo>
+                    </Box>
                   ))}
               </SliderRow>
             </AnimatePresence>
