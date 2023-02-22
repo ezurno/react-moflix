@@ -10,10 +10,10 @@ import {
   SliderRow,
   Wrapper,
   SliderHeader,
-} from "../Styles/StyledSlider";
-import { IMoviesData } from "../Utils/props";
-import { makeImagePath, useWindowDimensions } from "../Utils/utilities";
-import { Overlay } from "./Overlay";
+} from "../../Styles/StyledSlider";
+import { IMoviesData } from "../../Utils/props";
+import { makeImagePath, useWindowDimensions } from "../../Utils/utilities";
+import TvOverlay from "./TvOverlay";
 
 const boxVariants: Variants = {
   initial: {
@@ -53,7 +53,7 @@ interface ISliderProps {
 }
 
 function Slider({ data, category, text }: ISliderProps) {
-  const [movieIndex, setMovieIndex] = useState(0);
+  const [tvIndex, setTvIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
 
   const changeLeaving = () => {
@@ -61,11 +61,11 @@ function Slider({ data, category, text }: ISliderProps) {
   };
 
   const history = useHistory();
-  const onBoxClicked = (movieId: number) => {
-    history.push(`/movies/${movieId}`); // url에 /movies/movieId를 입력
+  const onBoxClicked = (tvId: number) => {
+    history.push(`/tv/${tvId}`); // url에 /movies/movieId를 입력
   };
 
-  const movieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
+  const tvMatch = useRouteMatch<{ tvId: string }>("/tv/:tvId");
 
   const width = useWindowDimensions();
 
@@ -76,20 +76,18 @@ function Slider({ data, category, text }: ISliderProps) {
         const maxIndex = Math.ceil(data.results.length / offset) - 1;
         changeLeaving();
 
-        setMovieIndex((value) => (value === maxIndex ? 0 : value + 1));
+        setTvIndex((value) => (value === maxIndex ? 0 : value + 1));
       }
     }
   };
 
-  const findMovie =
-    movieMatch?.params.movieId &&
-    data?.results.find(
-      (movie) => String(movie.id) === movieMatch.params.movieId
-    );
+  const findTv =
+    tvMatch?.params.tvId &&
+    data?.results.find((movie) => String(movie.id) === tvMatch.params.tvId);
 
   const resultsData = data?.results
     .slice(1)
-    .slice(offset * movieIndex, offset * movieIndex + offset);
+    .slice(offset * tvIndex, offset * tvIndex + offset);
 
   return (
     <>
@@ -97,7 +95,7 @@ function Slider({ data, category, text }: ISliderProps) {
         <AnimatePresence initial={false} onExitComplete={changeLeaving}>
           <SliderHeader>{text}</SliderHeader>
           <SliderRow
-            key={category + movieIndex}
+            key={category + tvIndex}
             // variants={rowVarients} === BUG FIX ===
             initial={{ x: width + 10 }}
             animate={{ x: 0 }}
@@ -119,7 +117,7 @@ function Slider({ data, category, text }: ISliderProps) {
                   // layoutId={`${value.id}`}
                 >
                   <BoxInfo variants={boxInfoVariants}>
-                    <h4>{value.title}</h4>
+                    <h4>{value.name}</h4>
                   </BoxInfo>
                 </Box>
               ))}
@@ -131,14 +129,14 @@ function Slider({ data, category, text }: ISliderProps) {
           </svg>
         </NextBtn>
       </Wrapper>
-      {findMovie ? (
+      {findTv ? (
         <>
           {/* <BlackOut
             onClick={onOutClicked}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           /> */}
-          {<Overlay id={movieMatch.params.movieId} category={category} />}
+          {<TvOverlay tvId={tvMatch.params.tvId} category={category} />}
         </>
       ) : null}
     </>

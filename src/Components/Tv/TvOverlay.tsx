@@ -2,8 +2,13 @@ import { Variants } from "framer-motion";
 import React from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
-import { getMovieCredit, getMovieDetail } from "../api";
-import { Loader } from "../Styles/StyledHome";
+import {
+  getMovieCredit,
+  getMovieDetail,
+  getTvCredit,
+  getTvDetail,
+} from "../../api";
+import { Loader } from "../../Styles/StyledHome";
 import {
   BlackOut,
   Crew,
@@ -21,13 +26,13 @@ import {
   Poster,
   Score,
   ToolBox,
-} from "../Styles/StyledOverlay";
-import { ICrewData, IMovieInfoData } from "../Utils/props";
-import { makeImagePath } from "../Utils/utilities";
+} from "../../Styles/StyledOverlay";
+import { ICrewData, IMovieInfoData } from "../../Utils/props";
+import { makeImagePath } from "../../Utils/utilities";
 
 interface IOverlayProps {
   category?: string;
-  id: string;
+  tvId: string;
 }
 
 const overlayVariants: Variants = {
@@ -42,20 +47,20 @@ const blackOutVariants: Variants = {
   exit: { opacity: 0 },
 };
 
-export function Overlay({ category, id }: IOverlayProps) {
+export function Overlay({ category, tvId }: IOverlayProps) {
   const history = useHistory();
 
   const { data: infoData, isLoading: infoLoading } = useQuery<IMovieInfoData>(
     ["movie", `${category}_detail`],
-    () => getMovieDetail(id)
+    () => getTvDetail(tvId)
   );
 
   const { data: creditData, isLoading: creditLoading } = useQuery<ICrewData>(
     ["movie", `${category}_credit`],
-    () => getMovieCredit(id)
+    () => getTvCredit(tvId)
   );
 
-  console.log("OVERLAY" + category + id);
+  console.log("OVERLAY" + category + tvId);
 
   return (
     <>
@@ -78,11 +83,13 @@ export function Overlay({ category, id }: IOverlayProps) {
             <OverlayImg
               bgphoto={makeImagePath(`${infoData?.backdrop_path}`, "w500")}
             />
-            <OverlayTitle>{infoData?.title.toUpperCase()}</OverlayTitle>
+            <OverlayTitle>{infoData?.name.toUpperCase()}</OverlayTitle>
             <Over>
               <OverlayTool>
                 <OverBar>
-                  <OpenYear>{infoData?.release_date.slice(0, 4)}</OpenYear>
+                  <OpenYear>
+                    {infoData?.first_air_date.substring(0, 4)}
+                  </OpenYear>
                   <PlayBtn>
                     <h1>PLAY</h1>
                     <span className="material-symbols-outlined">

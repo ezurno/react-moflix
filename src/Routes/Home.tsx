@@ -2,8 +2,8 @@ import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import { getMovies } from "../api";
-import Overlay from "../Components/Overlay";
-import Slider from "../Components/Slider";
+import Overlay from "../Components/Movie/Overlay";
+import Slider from "../Components/Movie/Slider";
 import {
   Banner,
   BannerIcon,
