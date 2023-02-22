@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  padding: 0 60px;
+  height: 200px;
   position: relative;
+  top: -100px;
+  margin-bottom: 180px;
 `;
 
 export const SliderRow = styled(motion.div)`
@@ -46,4 +50,41 @@ export const BoxInfo = styled(motion.div)`
     text-align: center;
     font-size: 14px;
   }
+`;
+
+export const PrevBtn = styled.div`
+  width: 3.5vh;
+  height: 3.5vh;
+  top: 13vh;
+  position: absolute;
+  svg {
+    fill: rgb(238, 238, 238);
+    :hover {
+      fill: rgba(238, 238, 238, 0.7);
+    }
+  }
+  z-index: 1;
+  cursor: pointer;
+`;
+
+export const NextBtn = styled.div`
+  width: 3.5vh;
+  height: 3.5vh;
+  top: 13vh;
+  right: 5px;
+  position: absolute;
+  svg {
+    fill: rgb(238, 238, 238);
+    :hover {
+      fill: rgba(238, 238, 238, 0.7);
+    }
+  }
+  z-index: 1;
+  cursor: pointer;
+`;
+
+export const SliderHeader = styled.div`
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 48px;
 `;

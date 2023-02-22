@@ -17,14 +17,42 @@ export interface IMovie {
   overview: string;
 }
 
-export interface IInfoData {
-  genres: IGenres[];
-  release_date: string;
-  runtime: number;
+export interface IMovieInfoData {
+  id: number;
+  backdrop_path: string;
+  poster_path: string;
+
+  overview: string;
   vote_average: number;
+  genres: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
+  title: string;
+  original_title?: string;
+  name: string;
+  original_name?: string;
+  first_air_date: string;
+  release_date: string;
 }
 
-export interface IGenres {
+export interface ICrewData {
   id: number;
-  name: string;
+  cast: [
+    {
+      id: number;
+      name: string;
+      original_name: string;
+      character: string;
+    }
+  ];
+  crew: [
+    {
+      id: number;
+      known_for_department: string;
+      name: string;
+    }
+  ];
 }
