@@ -6,7 +6,8 @@ import {
   Variants,
 } from "framer-motion";
 import { useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled(motion.nav)`
@@ -85,7 +86,7 @@ const Dot = styled(motion.span)`
   background-color: ${(props) => props.theme.red};
 `;
 
-const Search = styled(motion.span)`
+const Search = styled(motion.form)`
   color: white;
   display: flex;
   justify-content: center;
@@ -108,6 +109,7 @@ const SearchInput = styled(motion.input)`
   padding: 5px 10px;
   padding-left: 40px;
   font-family: "Tilt Warp", cursive;
+  color: ${(props) => props.theme.white.lighter};
 `;
 
 const navVarient: Variants = {
@@ -119,6 +121,10 @@ const navVarient: Variants = {
     backgroundColor: "rgba(0,0,0,1)",
   },
 };
+
+interface IForm {
+  keyword: string;
+}
 
 function Header() {
   const [searchOn, setSearchOn] = useState(false);
@@ -142,6 +148,13 @@ function Header() {
   };
 
   // console.log(homeMatch, tvMatch);
+
+  const { register, handleSubmit } = useForm<IForm>();
+  const history = useHistory();
+
+  const onValid = (data: IForm) => {
+    history.push(`/search?keyword=${data.keyword}`);
+  };
 
   return (
     <Nav variants={navVarient} animate={navAnimation} initial="top">
@@ -178,8 +191,9 @@ function Header() {
         </Items>
       </Column>
       <Column>
-        <Search onClick={onSearch}>
+        <Search onSubmit={handleSubmit(onValid)}>
           <motion.svg
+            onClick={onSearch}
             animate={{ x: searchOn ? -165 : 0 }}
             transition={{ type: "linear" }}
             fill="currentColor"
@@ -193,6 +207,7 @@ function Header() {
             ></path>
           </motion.svg>
           <SearchInput
+            {...register("keyword", { required: true, minLength: 2 })}
             transition={{ type: "linear" }}
             animate={{ scaleX: searchOn ? 1 : 0 }}
             placeholder="Search your want."
