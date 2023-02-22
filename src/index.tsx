@@ -65,6 +65,7 @@ body {
   background-color: ${(props) => props.theme.black.darker};
   line-height: 1.2;
   min-width: 1280px;
+  user-select: none;
 
   
 }
