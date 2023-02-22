@@ -14,6 +14,7 @@ export const OverlayBox = styled(motion.div)`
   overflow-y: scroll;
   z-index: 99;
   user-select: none;
+  min-width: 480px;
 
   background-color: ${(props) => props.theme.black.lighter};
 `;
@@ -29,6 +30,7 @@ export const BlackOut = styled(motion.div)`
 `;
 
 export const OverlayTitle = styled.h2`
+  font-family: "Tilt Warp", cursive;
   font-size: 28px;
   color: ${(props) => props.theme.white.lighter};
   position: relative;
@@ -63,6 +65,7 @@ export const OverlayTool = styled.div`
 `;
 
 export const Score = styled.h2`
+  font-family: "Tilt Warp", cursive;
   font-size: 36px;
   margin-right: 28px;
 `;
@@ -105,14 +108,16 @@ export const Poster = styled.div<{ bgphoto: string }>`
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
 
-export const OpenYear = styled.span`
-  padding: 4px 12px;
-  margin: 15px 0;
+export const OpenYear = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Tilt Warp", cursive;
+  margin: 10px 2px;
   color: green;
-  font-size: 18px;
-  border-radius: 2px;
-  border: 2px solid green;
+  font-size: 15px;
   margin-right: 50px;
+  width: auto;
 `;
 
 export const Crew = styled.div`
@@ -121,6 +126,7 @@ export const Crew = styled.div`
     color: gray;
     font-size: 18px;
     margin: 15px 0;
+    font-family: "Tilt Warp", cursive;
   }
 
   p {
@@ -137,6 +143,7 @@ export const OverBar = styled.div`
 `;
 
 export const PlayBtn = styled.span`
+  font-family: "Tilt Warp", cursive;
   padding: 4px 12px;
   margin: 16px 0;
   height: 30px;

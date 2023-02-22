@@ -143,4 +143,4 @@ function Slider({ data, category, text }: ISliderProps) {
   );
 }
 
-export default React.memo(Slider);
+export default Slider;

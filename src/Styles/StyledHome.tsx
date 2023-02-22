@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   background-color: black;
   height: 200vh;
   overflow-x: hidden;
+  min-width: 1200px;
 `;
 
 export const Loader = styled.div`
@@ -31,13 +32,15 @@ export const Banner = styled.div<{ bgPhoto: string }>`
 `;
 
 export const Title = styled.h2`
+  font-family: "Tilt Warp", cursive;
   font-size: 48px;
   margin-bottom: 12px;
 `;
 
 export const Overview = styled.p`
   font-size: 24px;
-  width: 40vw;
+  width: 35vw;
+  min-width: 400px;
 `;
 
 export const BannerIcon = styled.div`
@@ -45,6 +48,7 @@ export const BannerIcon = styled.div`
   display: flex;
 `;
 export const BannerPlay = styled.span`
+  font-family: "Tilt Warp", cursive;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -64,6 +68,7 @@ export const BannerPlay = styled.span`
   }
 `;
 export const BannerInfo = styled.span`
+  font-family: "Tilt Warp", cursive;
   text-align: center;
   justify-content: center;
   align-items: center;

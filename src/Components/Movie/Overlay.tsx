@@ -55,8 +55,6 @@ export function Overlay({ category, id }: IOverlayProps) {
     () => getMovieCredit(id)
   );
 
-  console.log("OVERLAY" + category + id);
-
   return (
     <>
       {infoLoading && creditLoading ? (
@@ -78,11 +76,11 @@ export function Overlay({ category, id }: IOverlayProps) {
             <OverlayImg
               bgphoto={makeImagePath(`${infoData?.backdrop_path}`, "w500")}
             />
-            <OverlayTitle>{infoData?.title.toUpperCase()}</OverlayTitle>
+            <OverlayTitle>{infoData?.title}</OverlayTitle>
             <Over>
               <OverlayTool>
                 <OverBar>
-                  <OpenYear>{infoData?.release_date.slice(0, 4)}</OpenYear>
+                  <OpenYear>{infoData ? infoData.release_date : null}</OpenYear>
                   <PlayBtn>
                     <h1>PLAY</h1>
                     <span className="material-symbols-outlined">
@@ -109,13 +107,13 @@ export function Overlay({ category, id }: IOverlayProps) {
                 <Poster bgphoto={makeImagePath(`${infoData?.poster_path}`)} />
                 <Crew>
                   <h1>ACTOR: </h1>
-                  {creditData?.cast.slice(0, 7).map((crew) => (
-                    <p>{crew.name}</p>
+                  {creditData?.cast.slice(0, 7).map((crew, index) => (
+                    <p key={crew + String(index)}>{crew.name}</p>
                   ))}
 
                   <h1>AUTHOR: </h1>
-                  {creditData?.crew.slice(0, 2).map((crew) => (
-                    <p>{crew.name}</p>
+                  {creditData?.crew.slice(0, 2).map((crew, index) => (
+                    <p key={crew + String(index)}>{crew.name}</p>
                   ))}
                 </Crew>
               </OverInfo>
@@ -127,4 +125,4 @@ export function Overlay({ category, id }: IOverlayProps) {
   );
 }
 
-export default React.memo(Overlay);
+export default Overlay;

@@ -2,6 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import { getMovies, getTv } from "../api";
+import Footer from "../Components/Footer";
 import Slider from "../Components/Movie/Slider";
 import TvSlider from "../Components/Tv/TvSlider";
 import {
@@ -65,6 +66,7 @@ function Tv() {
           <TvSlider data={on_data} category="up" text="UPDATE" />
         </>
       )}
+      <Footer />
     </Wrapper>
   );
 }

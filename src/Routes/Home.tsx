@@ -2,6 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import { getMovies } from "../api";
+import Footer from "../Components/Footer";
 import Overlay from "../Components/Movie/Overlay";
 import Slider from "../Components/Movie/Slider";
 import {
@@ -67,6 +68,7 @@ function Home() {
           <Slider data={pop_data} category="popular" text="POPULAR" />
         </>
       )}
+      <Footer />
     </Wrapper>
   );
 }

@@ -46,6 +46,7 @@ const Items = styled.ul`
 `;
 
 const Item = styled.li`
+  font-family: "Tilt Warp", cursive;
   margin-right: 20px;
   color: ${(props) => props.theme.white.darker};
   transition: color 0.3s ease-in-out;
@@ -106,6 +107,7 @@ const SearchInput = styled(motion.input)`
   right: 0px;
   padding: 5px 10px;
   padding-left: 40px;
+  font-family: "Tilt Warp", cursive;
 `;
 
 const navVarient: Variants = {

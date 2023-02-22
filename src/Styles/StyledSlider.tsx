@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   position: relative;
   top: -100px;
   margin-bottom: 180px;
+  min-width: 1200px;
 `;
 
 export const SliderRow = styled(motion.div)`
@@ -39,6 +40,7 @@ export const Box = styled(motion.div)<{ bgphoto: string }>`
 export const offset = 6;
 
 export const BoxInfo = styled(motion.div)`
+  font-family: "Tilt Warp", cursive;
   padding: 12px;
   background-color: ${(props) => props.theme.black.lighter};
   opacity: 0;
@@ -68,9 +70,9 @@ export const PrevBtn = styled.div`
 `;
 
 export const NextBtn = styled.div`
-  width: 3.5vh;
-  height: 3.5vh;
-  top: 13vh;
+  width: 5vh;
+  height: 5vh;
+  top: 22.5vh;
   right: 5px;
   position: absolute;
   svg {
@@ -84,6 +86,7 @@ export const NextBtn = styled.div`
 `;
 
 export const SliderHeader = styled.div`
+  font-family: "Tilt Warp", cursive;
   width: 20%;
   font-size: 32px;
   font-weight: 300;

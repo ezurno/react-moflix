@@ -63,6 +63,8 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
+  min-width: 1280px;
+
   
 }
 
