@@ -84,7 +84,10 @@ export const NextBtn = styled.div`
 `;
 
 export const SliderHeader = styled.div`
+  width: 20%;
   font-size: 32px;
   font-weight: 300;
   margin-bottom: 48px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid red;
 `;

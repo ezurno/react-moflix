@@ -1,12 +1,24 @@
 import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
+import { useHistory } from "react-router-dom";
 import { getMovies } from "../api";
+import Overlay from "../Components/Overlay";
 import Slider from "../Components/Slider";
-import { Banner, Loader, Overview, Title, Wrapper } from "../Styles/StyledHome";
+import {
+  Banner,
+  BannerIcon,
+  BannerInfo,
+  BannerPlay,
+  Loader,
+  Overview,
+  Title,
+  Wrapper,
+} from "../Styles/StyledHome";
 import { IMoviesData } from "../Utils/props";
 import { makeImagePath } from "../Utils/utilities";
 
 function Home() {
+  const history = useHistory();
   const { data: now_data, isLoading: now_isLoading } = useQuery<IMoviesData>(
     ["movies", "now_playing"],
     () => getMovies("now_playing")
@@ -38,11 +50,21 @@ function Home() {
           >
             <Title>{now_data?.results[0].title.toUpperCase()}</Title>
             <Overview>{now_data?.results[0].overview}</Overview>
+            <BannerIcon>
+              <BannerPlay>Play &gt;</BannerPlay>
+              <BannerInfo
+                onClick={() => {
+                  history.push(`/movies/${now_data?.results[0].id}`);
+                }}
+              >
+                Info &gt;
+              </BannerInfo>
+            </BannerIcon>
           </Banner>
           <Slider data={now_data} category="now_playing" text="NOW PLAYING" />
-          <Slider data={pop_data} category="popular" text="POPULAR" />
           <Slider data={top_data} category="top" text="TOP RANK" />
           <Slider data={up_data} category="up" text="UPDATE" />
+          <Slider data={pop_data} category="popular" text="POPULAR" />
         </>
       )}
     </Wrapper>

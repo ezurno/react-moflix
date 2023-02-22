@@ -13,6 +13,7 @@ export const OverlayBox = styled(motion.div)`
   overflow: hidden;
   overflow-y: scroll;
   z-index: 99;
+  user-select: none;
 
   background-color: ${(props) => props.theme.black.lighter};
 `;
@@ -111,6 +112,7 @@ export const OpenYear = styled.span`
   font-size: 18px;
   border-radius: 2px;
   border: 2px solid green;
+  margin-right: 50px;
 `;
 
 export const Crew = styled.div`
@@ -125,5 +127,34 @@ export const Crew = styled.div`
     font-size: 15px;
     color: ${(props) => props.theme.white.lighter};
     margin-left: 15px;
+  }
+`;
+
+export const OverBar = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: space-space-between;
+`;
+
+export const PlayBtn = styled.span`
+  padding: 4px 12px;
+  margin: 16px 0;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100px;
+  border: 2px solid ${(props) => props.theme.white.darker};
+  border-radius: 2px;
+  cursor: pointer;
+
+  transition: 0.5s color ease-in-out, 0.5s background-color ease-in-out;
+  h1 {
+    font-size: 20px;
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.white.darker};
+    color: ${(props) => props.theme.black.darker};
   }
 `;

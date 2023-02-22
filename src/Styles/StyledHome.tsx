@@ -39,3 +39,46 @@ export const Overview = styled.p`
   font-size: 24px;
   width: 40vw;
 `;
+
+export const BannerIcon = styled.div`
+  margin-top: 50px;
+  display: flex;
+`;
+export const BannerPlay = styled.span`
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.white.darker};
+  color: ${(props) => props.theme.black.lighter};
+  padding: 10px 30px;
+  font-size: 30px;
+  margin-right: 50px;
+  border: 2px solid ${(props) => props.theme.white.darker};
+  border-radius: 15px;
+  cursor: pointer;
+
+  transition: 0.5s color ease-in-out, 0.5s background-color ease-in-out;
+  :hover {
+    background-color: transparent;
+    color: ${(props) => props.theme.white.darker};
+  }
+`;
+export const BannerInfo = styled.span`
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid ${(props) => props.theme.white.darker};
+  border-radius: 15px;
+
+  padding: 10px 30px;
+  font-size: 30px;
+  margin-right: 50px;
+  font-size: 30px;
+  cursor: pointer;
+
+  transition: 0.5s color ease-in-out, 0.5s background-color ease-in-out;
+  :hover {
+    background-color: ${(props) => props.theme.white.darker};
+    color: ${(props) => props.theme.black.lighter};
+  }
+`;

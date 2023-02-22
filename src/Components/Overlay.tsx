@@ -2,7 +2,6 @@ import { Variants } from "framer-motion";
 import React from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import { getMovieCredit, getMovieDetail } from "../api";
 import { Loader } from "../Styles/StyledHome";
 import {
@@ -10,6 +9,7 @@ import {
   Crew,
   OpenYear,
   Over,
+  OverBar,
   OverHeader,
   OverInfo,
   OverlayBox,
@@ -17,6 +17,7 @@ import {
   OverlayOverview,
   OverlayTitle,
   OverlayTool,
+  PlayBtn,
   Poster,
   Score,
   ToolBox,
@@ -80,7 +81,15 @@ export function Overlay({ category, id }: IOverlayProps) {
             <OverlayTitle>{infoData?.title.toUpperCase()}</OverlayTitle>
             <Over>
               <OverlayTool>
-                <OpenYear>{infoData?.release_date.slice(0, 4)}</OpenYear>
+                <OverBar>
+                  <OpenYear>{infoData?.release_date.slice(0, 4)}</OpenYear>
+                  <PlayBtn>
+                    <h1>PLAY</h1>
+                    <span className="material-symbols-outlined">
+                      play_circle
+                    </span>
+                  </PlayBtn>
+                </OverBar>
 
                 <OverHeader>
                   <Score>{infoData?.vote_average.toFixed(1)}⭐</Score>
