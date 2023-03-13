@@ -112,6 +112,15 @@ transition: {repeat: Infinity}
 - 우측의 화살표를 누르면 **Slide** 되는 애니메이션으로 목록이 넘어감
 
 <br/>
+<p>
+<img src ="md_resources\resource_13.png" height="300"/>
+<img src ="md_resources\resource_14.png" height="300"/>
+</p>
+
+- 마우스를 리스트에 가져다 대면 애니메이션이 실행 되고, 영화제목이 나타남
+- 클릭 시 **Info**가 나타남
+
+<br/>
 <hr/>
 
 > ## **검색**
@@ -135,6 +144,13 @@ transition: {repeat: Infinity}
 
 - **"batman"** 을 검색한 모습
 - TV show 와 Movie 내 일치하는 영상들을 뽑아서 나열 함
+
+<br/>
+<img src ="md_resources\resource_15.png" height="200"/>
+<br/>
+<br/>
+
+- 리스트처럼 클릭 시 **Info**가 나타남
 
 <br/>
 <hr/>
